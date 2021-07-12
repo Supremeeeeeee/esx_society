@@ -7,7 +7,7 @@ Ok, so i am adding in a callsign option to esx_society but i am currently stuck 
 
 https://streamable.com/9zl3pt
 
-https://forum.cfx.re/uploads/default/original/4X/6/c/b/6cbef9605ac2a42f978786351d77d0559a0f6f20.png
+![image](https://user-images.githubusercontent.com/59232670/125348149-c4e40280-e353-11eb-9b94-8944b0fefb68.png)
 
 ![image](https://user-images.githubusercontent.com/59232670/125348093-b3025f80-e353-11eb-97e1-24f8e07f311e.png)
 
