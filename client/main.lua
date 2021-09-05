@@ -270,14 +270,14 @@ function OpenEmployeeList(society)
           },
           function(data, menu)
 
-            local argString = callsign
+            local callsign = tostring(data.data)
 
-            if argString == nil then
+            if callsign == nil then
               exports['mythic_notify']:DoCustomHudText('inform', 'Invalid Callsign')
               else
               menu.close()
               OpenEmployeeList(society)
-              TriggerServerEvent('esx_society:setCallsign', source, args)
+              TriggerServerEvent('esx_society:setCallsign', source, callsign)
             end
           end,
           function(data, menu)
