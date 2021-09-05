@@ -378,15 +378,15 @@ TriggerEvent('cron:runAt', 3, 0, WashMoneyCRON)
 
 
 RegisterServerEvent('esx_society:setCallsign')
-AddEventHandler('esx_society:setCallsign', function(args)
-    local callsign = args
-    MySQL.Async.execute('UPDATE users SET callsign = @callsign WHERE identifier = @source',{
-		['@callsign'] = callsign,
-		["@source"] = GetPlayerIdentifiers(source)[1]
-	},
-
-        function(rowsChanged)
-        TriggerClientEvent("output", source, "^2".. callsign.. "^0")
-
-    end)
+AddEventHandler('esx_society:setCallsign', function(identifier, callsign)
+	local _source = source
+	local xPlayer = ESX.GetPlayerFromId(_source)
+	if callsign ~= nil then
+		MySQL.Async.execute('UPDATE users SET callsign = @callsign WHERE identifier = @identifier', {
+			['@callsign'] = callsign,
+			['@identifier'] = identifier
+		}, function (onRowChange)
+		end)
+	end
 end)
+
