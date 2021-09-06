@@ -258,52 +258,44 @@ function OpenEmployeeList(society)
         local employee = data.data
 
         if data.value == 'promote' then
-          menu.close()
-          OpenPromoteMenu(society, employee)
+			menu.close()
+			OpenPromoteMenu(society, employee)
         end
 
-                          if data.value == 'callsign' then
-        ESX.UI.Menu.Open(
-          'dialog', GetCurrentResourceName(), 'callsign_',
-          {
-            title = _U('callsign')
-          },
-          function(data, menu)
-
-            local callsign = data.value ~= nil and data.value or ''
-
-            if callsign == nil then
-              exports['mythic_notify']:SendAlert('inform', 'Invalid Callsign')
-              else
-              menu.close()
-              OpenEmployeeList(society)
-              TriggerServerEvent('esx_society:setCallsign', source, callsign)
-TriggerEvent('esx:showNotification', 'You set ' .. employee.name .. '\'s callsign to ' .. callsign .. '.')
-            end
-          end,
-          function(data, menu)
-            menu.close()
-              OpenEmployeeList(society)
-          end
-        )
-      end
+        if data.value == 'callsign' then
+			ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'callsign_',
+				{
+					title = _U('callsign')
+				}, function(data, menu)
+				callsign = data.value
+					
+				if callsign == nil then
+					ESX.ShowNotification('~r~Invalid callsign!')
+				else
+					menu.close()
+					OpenEmployeeList(society)
+					TriggerServerEvent('esx_society:setCallsign', employee.identifier, callsign)
+					TriggerEvent('esx:showNotification', 'You set ' .. employee.name .. '\'s callsign to ' .. callsign .. '.')
+				end
+			end, function(data, menu)
+				menu.close()
+			end)
+		end
 
 
         if data.value == 'fire' then
-
-          TriggerEvent('esx:showNotification', _U('you_have_fired', employee.name))
-
-          ESX.TriggerServerCallback('esx_society:setJob', function()
-            OpenEmployeeList(society)
-          end, employee.identifier, 'unemployed', 0, 'fire')
-        end
-      end,
-      function(data, menu)
-        menu.close()
-        OpenManageEmployeesMenu(society)
-      end
-    )
-  end, society)
+			TriggerEvent('esx:showNotification', _U('you_have_fired', employee.name))
+				ESX.TriggerServerCallback('esx_society:setJob', function()
+					OpenEmployeeList(society)
+				end, employee.identifier, 'unemployed', 0, 'fire')
+			end
+		end,
+		function(data, menu)
+			menu.close()
+			OpenManageEmployeesMenu(society)
+		end
+		)
+	end, society)
 end
 
 
